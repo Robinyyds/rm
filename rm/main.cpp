@@ -7,16 +7,6 @@ class Car{
 
 
 public:
-    int check_red_number(){
-        int number_r;
-        number_r=Red_Blood.size();
-        return number_r;
-    }
-    int check_blue_number(){
-        int number_b;
-        number_b=Blue_Blood.size();
-        return number_b;
-    }
     void Red_Blood_init(char x,int k){
         Red_Blood.resize(100);
         if(x=='B') {
@@ -153,15 +143,25 @@ int main() {
                 for(s=4;a[s]!=' ';s++);
                 shoot=atoi(&a[s]);
                 if (teamNumber == 'R') {
-                    if(red_ca[number]=='Y')
-                        myCar.Red_Heat42[number]-=30*shoot;
-                    else if(red_ca[number]=='B'||red_ca[number]=='S')
-                        myCar.Red_Heat17[number]-=15*shoot;
+                    if(red_ca[number]=='Y') {
+                        myCar.Red_Heat42[number] -= 30 * shoot;
+                        if(myCar.Red_Heat42[number]<=0)
+                            myCar.Red_Blood[number]=0;
+                    }else if(red_ca[number]=='B'||red_ca[number]=='S') {
+                        myCar.Red_Heat17[number] -= 15 * shoot;
+                        if(myCar.Red_Heat17[number]<=0)
+                            myCar.Red_Blood[number]=0;
+                    }
                 } else if (teamNumber == 'B') {
-                    if(blue_ca[number]=='Y')
-                        myCar.Blue_Heat42[number]-=30*shoot;
-                    else if(blue_ca[number]=='B'||blue_ca[number]=='S')
-                        myCar.Blue_Heat17[number]-=15*shoot;
+                    if(blue_ca[number]=='Y') {
+                        myCar.Blue_Heat42[number] -= 30 * shoot;
+                        if(myCar.Blue_Heat42[number]<=0)
+                            myCar.Blue_Blood[number]=0;
+                    }else if(blue_ca[number]=='B'||blue_ca[number]=='S') {
+                        myCar.Blue_Heat17[number] -= 15 * shoot;
+                        if(myCar.Blue_Heat17[number]<=0)
+                            myCar.Blue_Blood[number]=0;
+                    }
                 }
             }
         }else {
@@ -170,11 +170,49 @@ int main() {
     }
     cout<<"Team : Red"<<endl;
     for (int tmp = 0; red_temp[tmp]!=0;tmp++){
-        cout<<"The car:"<< red_ca[red_temp[tmp]]<<"   Blood:"<<myCar.Red_Blood[red_temp[tmp]]<<"  17mm:"<<myCar.Red_Heat17[red_temp[tmp]]<<"  42mm:"<<myCar.Red_Heat42[red_temp[tmp]]<<endl;
-    }
+        if(myCar.Red_Blood[red_temp[tmp]]==0)
+            cout<<"The NO."<<red_temp[tmp]<<" die"<<endl;
+        else {
+            if (red_ca[red_temp[tmp]]=='Y') {
+                cout << "The car:" << red_ca[red_temp[tmp]] << "   Blood:" << myCar.Red_Blood[red_temp[tmp]]
+                     <<"  the heat of 42mm(the superior limit is 300):"
+                     << 300-myCar.Red_Heat42[red_temp[tmp]] << endl;
+            }else if(red_ca[red_temp[tmp]]=='B'){
+                cout << "The car:" << red_ca[red_temp[tmp]] << "   Blood:" << myCar.Red_Blood[red_temp[tmp]]
+                     <<"  the heat of 17mm(the superior limit is 200):"
+                     << 200-myCar.Red_Heat17[red_temp[tmp]] << endl;
+            }else if(red_ca[red_temp[tmp]]=='S'){
+                cout << "The car:" << red_ca[red_temp[tmp]] << "   Blood:" << myCar.Red_Blood[red_temp[tmp]]
+                     <<"  the heat of 17mm(the superior limit is 300):"
+                     << 300-myCar.Red_Heat17[red_temp[tmp]] << endl;
+            }else if(red_ca[red_temp[tmp]]=='G'){
+                cout << "The car:" << red_ca[red_temp[tmp]] << "   Blood:" << myCar.Red_Blood[red_temp[tmp]]
+                      << endl;
+            }
+            }
+        }
     cout<<"Team : Blue"<<endl;
     for (int tmp = 0;blue_temp[tmp]!=0;tmp++){
-        cout<<"The car:"<< blue_ca[blue_temp[tmp]]<<"  Blood:"<<myCar.Blue_Blood[blue_temp[tmp]]<<"  17mm:"<<myCar.Blue_Heat17[blue_temp[tmp]]<<"  42mm:"<<myCar.Blue_Heat42[blue_temp[tmp]]<<endl;
+       if(myCar.Blue_Blood[blue_temp[tmp]]==0)
+           cout<<"The NO."<<blue_temp[tmp]<<" die"<<endl;
+       else{
+           if (blue_ca[blue_temp[tmp]]=='Y') {
+               cout << "The car:" << blue_ca[blue_temp[tmp]] << "   Blood:" << myCar.Blue_Blood[blue_temp[tmp]]
+                    <<"  the heat of 42mm(the superior limit is 300):"
+                    << 300-myCar.Blue_Heat42[blue_temp[tmp]] << endl;
+           }else if(blue_ca[blue_temp[tmp]]=='B'){
+               cout << "The car:" << blue_ca[blue_temp[tmp]] << "   Blood:" << myCar.Blue_Blood[blue_temp[tmp]]
+                    <<"  the heat of 17mm(the superior limit is 200):"
+                    << 200-myCar.Blue_Heat17[blue_temp[tmp]] << endl;
+           }else if(blue_ca[blue_temp[tmp]]=='S'){
+               cout << "The car:" << blue_ca[blue_temp[tmp]] << "   Blood:" << myCar.Blue_Blood[blue_temp[tmp]]
+                    <<"  the heat of 17mm(the superior limit is 300):"
+                    << 300-myCar.Blue_Heat17[blue_temp[tmp]] << endl;
+           }else if(blue_ca[blue_temp[tmp]]=='G'){
+               cout << "The car:" << blue_ca[blue_temp[tmp]] << "   Blood:" << myCar.Blue_Blood[blue_temp[tmp]]
+                    << endl;
+           }
+       }
     }
 
     return 0;
