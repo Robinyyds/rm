@@ -108,7 +108,7 @@ int main() {
     int red_temp[1000]={0};
     int blue_temp[1000]={0};
     char teamNumber, carNumber;
-    int number;
+    int number,damage,s;
     while (t != 1) {
         cin.getline(a, 20);
 
@@ -136,6 +136,16 @@ int main() {
                     myCar.Blue_Blood_init(carNumber, number);
                     myCar.Blue_Heat17_init(carNumber, number);
                     myCar.Blue_Heat42_init(carNumber, number);
+                }
+            }else if(a[0] == 'F'){
+                teamNumber = a[2];
+                number = atoi(&a[4]);
+                for(s=4;a[s]!=' ';s++);
+                damage=atoi(&a[s]);
+                if (teamNumber == 'R') {
+                    myCar.Red_Blood[number]-=damage;
+                } else if (teamNumber == 'B') {
+                    myCar.Blue_Blood[number]-=damage;
                 }
             }
         }else {
