@@ -4,8 +4,6 @@
 #include <vector>
 #include <map>
 using namespace std;
-
-//char TheName[4][20]={"infantry","guard","hero","engineer"};
 class Car{
 public:
     int blood;
@@ -45,6 +43,17 @@ public:
             return 300;
         }else if(CarKind=="G"){
             return -1;
+        }
+    }
+    string ChangeName(string name){
+        if(name=="B"){
+            return "步兵";
+        }else if(name=="S"){
+            return "哨兵";
+        }else if(name=="Y"){
+            return "英雄";
+        }else if(name=="G"){
+            return "工程";
         }
     }
 };
@@ -104,26 +113,23 @@ int main() {
                 map<int, Car>::iterator itRed, itBlue;
                 cout << "红方存活：" << endl;
                 for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
-                    if (itRed->second.kind == "hero")
-                        cout << "红方" << itRed->first << "号机器人   种类：" << itRed->second.kind << "   血量："
+                    if (itRed->second.kind == "Y")
+                        cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind) << "   血量："
                              << itRed->second.blood << "   热量：" << itRed->second.heat_42 << endl;
                     else
-                        cout << "红方" << itRed->first << "号机器人   种类：" << itRed->second.kind << "   血量："
+                        cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind) << "   血量："
                              << itRed->second.blood << "   热量：" << itRed->second.heat_17 << endl;
                 }
                     cout << "蓝方存活：" << endl;
                     for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
-                        if (itBlue->second.kind == "hero")
-                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << itBlue->second.kind << "   血量："
+                        if (itBlue->second.kind == "Y")
+                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind) << "   血量："
                                  << itBlue->second.blood << "   热量：" << itBlue->second.heat_42 << endl;
                         else
-                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << itBlue->second.kind << "   血量："
+                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind) << "   血量："
                                  << itBlue->second.blood << "   热量：" << itBlue->second.heat_17 << endl;
                     }
-
             return 0;
             }
         }
-
-
 }
