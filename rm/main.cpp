@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include<iomanip>
 #include <vector>
@@ -75,7 +74,6 @@ int main() {
     while (1) {
         cin >> CarCommand;
         if (CarCommand == "A") {
-
             cin >> CarTeam >> CarKind >> CarNum;
             if (CarTeam == "R") {
                 RedCar[CarNum].number = CarNum;
@@ -103,14 +101,14 @@ int main() {
                 BlueCar[CarNum].blood -= CarHurt;
                 if (BlueCar[CarNum].blood <= 0) {
                     BlueDied[CarNum].reason = "blood";
-                    BlueDied[CarNum].CarNum = CarNum;
                     BlueCar.erase(CarNum);
                 }
             }
             } else if (CarCommand == "H") {
-
+                
             } else if (CarCommand == "END") {
                 map<int, Car>::iterator itRed, itBlue;
+                map<int, DiedReason>::iterator  RedDeath,BlueDeath;
                 cout << "红方存活：" << endl;
                 for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
                     if (itRed->second.kind == "Y")
@@ -121,14 +119,21 @@ int main() {
                              << itRed->second.blood << "   热量：" << itRed->second.heat_17 << endl;
                 }
                     cout << "蓝方存活：" << endl;
-                    for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
+                for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
                         if (itBlue->second.kind == "Y")
                             cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind) << "   血量："
                                  << itBlue->second.blood << "   热量：" << itBlue->second.heat_42 << endl;
                         else
                             cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind) << "   血量："
                                  << itBlue->second.blood << "   热量：" << itBlue->second.heat_17 << endl;
-                    }
+                }
+                cout<<"伤亡情况："<<endl;
+                for(RedDeath = RedDied.begin();RedDeath != RedDied.end();RedDeath++){
+                    cout<<"红方"<<RedDeath->first<<"号机器人死亡     死因:"<<RedDeath->second.reason<<endl;
+                }
+                for(RedDeath = RedDied.begin();RedDeath != RedDied.end();RedDeath++){
+                cout<<"蓝方"<<BlueDeath->first<<"号机器人死亡     死因:"<<RedDeath->second.reason<<endl;
+                }
             return 0;
             }
         }
