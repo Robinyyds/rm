@@ -111,7 +111,7 @@ int main() {
                     BlueCar.erase(CarNum);
                 }
             }
-            } else if (CarCommand == "END") {
+            } else if (CarCommand == "END"||CarCommand == "End"||CarCommand == "end") {
                 map<int, Car>::iterator itRed, itBlue;
                 map<int, DiedReason>::iterator  RedDeath,BlueDeath;
                 cout << "ºì·½´æ»î£º" << endl;
