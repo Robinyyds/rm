@@ -145,6 +145,8 @@ int main() {
                         cout<<"蓝方"<<BlueDeath->first<<"号机器人死亡     死因:"<<BlueDeath->second.reason<<endl;
                 }
             return 0;
-            }
+            }else {
+            cout<<"没有该项指令，请重新输入！"<<endl;
+        }
         }
 }
