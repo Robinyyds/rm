@@ -4,9 +4,9 @@
 using namespace std;
 class Car{
 public:
-    int blood;
-    int heat_max;
-    int heat;
+    int blood=0;
+    int heat_max=0;
+    int heat=0;
     string team;
     string kind;
     int BloodCheck(string CarKind){
@@ -115,7 +115,7 @@ int main() {
                 map<int, Car>::iterator itRed, itBlue;
                 map<int, DiedReason>::iterator  RedDeath,BlueDeath;
                 cout << "红方存活：" << endl;
-                if(RedCar.size()==0){
+                if(RedCar.empty()==1){
                     cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
@@ -126,7 +126,7 @@ int main() {
                     }
                 }
                     cout << "蓝方存活：" << endl;
-                if(BlueCar.size()==0){
+                if(BlueCar.empty()==1){
                      cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
