@@ -49,7 +49,11 @@ public:
 class DiedReason{
 public:
     string reason;
+    int flag=0;
 };
+int ErrorCheck(){
+
+}
 int main() {
     string CarTeam;
     string CarKind;
@@ -58,21 +62,28 @@ int main() {
     int CarHeat;
     Car RobotCar;
     string CarCommand;
+    int RedFlag=0,BlueFlag=0;
     map<int, Car> RedCar, BlueCar;
     map<int, DiedReason> RedDied, BlueDied;
+    RedDied.clear();
+    BlueDied.clear();
     while (1) {
         cin >> CarCommand;
         if (CarCommand == "A") {
             cin >> CarTeam >> CarKind >> CarNum;
             if (CarTeam == "R") {
+                RedFlag=1;
                 RedCar[CarNum].kind = CarKind;
                 RedCar[CarNum].blood = RobotCar.BloodCheck(CarKind);
                 RedCar[CarNum].heat_max=RobotCar.HeatCheck(CarKind);
+                RedDied[CarNum].flag++;
                 RedCar[CarNum].heat= 0;
             } else if (CarTeam == "B") {
+                BlueFlag=1;
                 BlueCar[CarNum].kind = CarKind;
                 BlueCar[CarNum].blood = RobotCar.BloodCheck(CarKind);
                 BlueCar[CarNum].heat_max=RobotCar.HeatCheck(CarKind);
+                BlueDied[CarNum].flag++;
                 BlueCar[CarNum].heat= 0;
             }
         } else if (CarCommand == "F") {
@@ -81,12 +92,14 @@ int main() {
                 RedCar[CarNum].blood -= CarHurt;
                 if (RedCar[CarNum].blood <= 0) {
                     RedDied[CarNum].reason = "blood";
+                    RedDied[CarNum].flag++;
                     RedCar.erase(CarNum);
                 }
             } else if (CarTeam == "B") {
                 BlueCar[CarNum].blood -= CarHurt;
                 if (BlueCar[CarNum].blood <= 0) {
                     BlueDied[CarNum].reason = "blood";
+                    BlueDied[CarNum].flag++;
                     BlueCar.erase(CarNum);
                 }
             }
@@ -99,6 +112,7 @@ int main() {
                     RedCar[CarNum].heat += CarHeat*15;
                 if (RedCar[CarNum].heat >=RedCar[CarNum].heat_max) {
                     RedDied[CarNum].reason = "heat";
+                    RedDied[CarNum].flag++;
                     RedCar.erase(CarNum);
                 }
             } else if (CarTeam == "B") {
@@ -108,6 +122,7 @@ int main() {
                     BlueCar[CarNum].heat += CarHeat*15;
                 if (BlueCar[CarNum].heat >=BlueCar[CarNum].heat_max) {
                     BlueDied[CarNum].reason = "heat";
+                    BlueDied[CarNum].flag++;
                     BlueCar.erase(CarNum);
                 }
             }
@@ -115,7 +130,9 @@ int main() {
                 map<int, Car>::iterator itRed, itBlue;
                 map<int, DiedReason>::iterator  RedDeath,BlueDeath;
                 cout << "红方存活：" << endl;
-                if(RedCar.empty()==1){
+                if(RedFlag==0){
+                    cout<<"没有录入红方信息"<<endl;
+                }else if(RedCar.empty()==1){
                     cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
@@ -126,7 +143,10 @@ int main() {
                     }
                 }
                     cout << "蓝方存活：" << endl;
-                if(BlueCar.empty()==1){
+                if(BlueFlag==0){
+                    cout<<"没有录入蓝方信息"<<endl;
+                }
+                else if(BlueCar.empty()==1){
                      cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
@@ -138,11 +158,13 @@ int main() {
                     }
                 }
                 cout<<"阵亡情况："<<endl;
-                for(RedDeath = RedDied.begin();RedDeath != RedDied.end();RedDeath++){
-                        cout<<"红方"<<RedDeath->first<<"号机器人死亡     死因:"<<RedDeath->second.reason<<endl;
+                for(RedDeath = RedDied.begin();RedFlag==1&&RedDeath != RedDied.end();RedDeath++){
+                    if(RedDied[RedDeath->first].flag==2)
+                        cout << "红方" << RedDeath->first << "号机器人死亡     死因:" << RedDeath->second.reason << endl;
                 }
-                for(BlueDeath = BlueDied.begin();BlueDeath != BlueDied.end();BlueDeath++){
-                        cout<<"蓝方"<<BlueDeath->first<<"号机器人死亡     死因:"<<BlueDeath->second.reason<<endl;
+                for(BlueDeath = BlueDied.begin();BlueFlag==1&&BlueDeath != BlueDied.end();BlueDeath++){
+                    if(BlueDied[BlueDeath->first].flag==2)
+                        cout << "蓝方" << BlueDeath->first << "号机器人死亡     死因:" << BlueDeath->second.reason << endl;
                 }
             return 0;
             }else {
