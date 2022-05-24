@@ -146,7 +146,7 @@ int main() {
                 }
             return 0;
             }else {
-            cout<<"没有该项指令，请重新输入！"<<endl;
+            cout<<"没有该项指令，请重新输入!!！"<<endl;
         }
         }
 }
