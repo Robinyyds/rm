@@ -108,6 +108,8 @@ int main() {
             if (CarTeam == "R") {
                 if(RedCar[CarNum].kind=="Y")
                     RedCar[CarNum].heat += CarHeat*30;
+                else if(RedCar[CarNum].kind=="G")
+                    RedCar[CarNum].heat =-1;
                 else
                     RedCar[CarNum].heat += CarHeat*15;
                 if (RedCar[CarNum].heat >=RedCar[CarNum].heat_max) {
@@ -116,10 +118,15 @@ int main() {
                     RedCar.erase(CarNum);
                 }
             } else if (CarTeam == "B") {
+
                 if(BlueCar[CarNum].kind=="Y")
                     BlueCar[CarNum].heat += CarHeat*30;
+                else if(BlueCar[CarNum].kind=="G")
+                    BlueCar[CarNum].heat =-1;
                 else
                     BlueCar[CarNum].heat += CarHeat*15;
+
+
                 if (BlueCar[CarNum].heat >=BlueCar[CarNum].heat_max) {
                     BlueDied[CarNum].reason = "heat";
                     BlueDied[CarNum].flag++;
@@ -136,6 +143,7 @@ int main() {
                     cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
+                        
                         cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind)
                              << "   血量："
                              << itRed->second.blood << "   热量：" << itRed->second.heat << "(热量上限为："
@@ -159,11 +167,11 @@ int main() {
                 }
                 cout<<"阵亡情况："<<endl;
                 for(RedDeath = RedDied.begin();RedFlag==1&&RedDeath != RedDied.end();RedDeath++){
-                    if(RedDied[RedDeath->first].flag==2)
+                    if(RedDied[RedDeath->first].flag>=2)
                         cout << "红方" << RedDeath->first << "号机器人死亡     死因:" << RedDeath->second.reason << endl;
                 }
                 for(BlueDeath = BlueDied.begin();BlueFlag==1&&BlueDeath != BlueDied.end();BlueDeath++){
-                    if(BlueDied[BlueDeath->first].flag==2)
+                    if(BlueDied[BlueDeath->first].flag>=2)
                         cout << "蓝方" << BlueDeath->first << "号机器人死亡     死因:" << BlueDeath->second.reason << endl;
                 }
             return 0;
