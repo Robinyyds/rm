@@ -143,8 +143,12 @@ int main() {
                     cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itRed = RedCar.begin(); itRed != RedCar.end(); itRed++) {
-                        
-                        cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind)
+                        if(itRed->second.kind=="G")
+                            cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind)
+                                 << "   血量："
+                                 << itRed->second.blood << "    无热量信息" << endl;
+                        else
+                            cout << "红方" << itRed->first << "号机器人   种类：" << RobotCar.ChangeName(itRed->second.kind)
                              << "   血量："
                              << itRed->second.blood << "   热量：" << itRed->second.heat << "(热量上限为："
                              << itRed->second.heat_max << ")" << endl;
@@ -158,7 +162,12 @@ int main() {
                      cout<<"没有兵种存活"<<endl;
                 }else {
                     for (itBlue = BlueCar.begin(); itBlue != BlueCar.end(); itBlue++) {
-                        cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind)
+                        if(itBlue->second.kind=="G")
+                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind)
+                                 << "   血量："
+                                 << itBlue->second.blood << "    无热量信息" << endl;
+                        else
+                            cout << "蓝方" << itBlue->first << "号机器人   种类：" << RobotCar.ChangeName(itBlue->second.kind)
                              << "   血量："
                              << itBlue->second.blood << "   热量：" << itBlue->second.heat << "(热量上限为："
                              << itBlue->second.heat_max << ")" << endl;
